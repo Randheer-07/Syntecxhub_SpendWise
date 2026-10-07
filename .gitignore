@@ -1,0 +1,26 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Dependencies & build output
+node_modules/
+dist/
+.cache/
+
+# Secrets / env
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test artifacts
+test-output/
+screenshots/*.png

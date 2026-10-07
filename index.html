@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · SpendWise</title>
+  <meta name="description" content="SpendWise — smart personal expense tracker with budgeting, analytics and savings goals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232fe0c4' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M3 17l6-6 4 4 7-7'/%3E%3Cpath d='M14 8h6v6'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app">
+    <div class="scrim" id="scrim"></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+        <span>
+          <span class="brand-name">Spend<span>Wise</span></span>
+          <span class="brand-sub">Personal finance</span>
+        </span>
+      </a>
+
+      <p class="nav-label">Overview</p>
+      <nav class="nav">
+        <a class="nav-link" href="index.html" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="#i-layout-dashboard"></use></svg> Dashboard
+        </a>
+        <a class="nav-link" href="transactions.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg> Transactions
+        </a>
+        <a class="nav-link" href="analytics.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-chart-pie"></use></svg> Analytics
+        </a>
+      </nav>
+
+      <p class="nav-label">Plan</p>
+      <nav class="nav">
+        <a class="nav-link" href="budget.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-wallet"></use></svg> Budget
+        </a>
+        <a class="nav-link" href="savings.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg> Savings Goal
+        </a>
+        <a class="nav-link" href="settings.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg> Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-note">
+          <strong>Tip of the day</strong>
+          <span>Press <b>Ctrl + K</b> anywhere to quickly add a transaction.</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" type="button"
+                aria-label="Open navigation" aria-expanded="false">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+        </button>
+        <div class="topbar-title">
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageSub">Your money at a glance</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="themeToggle" type="button" data-tip="Switch theme" aria-label="Switch theme">
+            <svg class="icon" aria-hidden="true"><use href="#i-sun"></use></svg>
+          </button>
+          <button class="icon-btn" type="button" data-add-txn data-tip="Add transaction" aria-label="Add transaction">
+            <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+            <span class="dot"></span>
+          </button>
+          <span class="avatar" id="userAvatar" aria-hidden="true">U</span>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="page">
+
+          <section class="page-intro reveal">
+            <div>
+              <h2 id="greeting">Welcome back</h2>
+              <p id="introLine">Here is how your finances look today.</p>
+            </div>
+            <div class="actions">
+              <button class="btn" type="button" data-export-csv>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#i-download"></use></svg> Export CSV
+              </button>
+              <button class="btn btn-primary" type="button" data-add-txn>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#i-plus"></use></svg> Add transaction
+              </button>
+            </div>
+          </section>
+
+          <section class="stat-grid reveal" aria-label="Financial summary">
+            <article class="stat-card tone-accent">
+              <div class="stat-top">
+                <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-wallet"></use></svg></span>
+                <span class="stat-label">Total balance</span>
+              </div>
+              <p class="stat-value num" id="statBalance">—</p>
+              <p class="stat-meta" id="statBalanceMeta">Across all transactions</p>
+            </article>
+
+            <article class="stat-card tone-income">
+              <div class="stat-top">
+                <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"></use></svg></span>
+                <span class="stat-label">Total income</span>
+              </div>
+              <p class="stat-value num" id="statIncome">—</p>
+              <p class="stat-meta" id="statIncomeMeta">All time earnings</p>
+            </article>
+
+            <article class="stat-card tone-expense">
+              <div class="stat-top">
+                <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow-down-left"></use></svg></span>
+                <span class="stat-label">Total expenses</span>
+              </div>
+              <p class="stat-value num" id="statExpense">—</p>
+              <p class="stat-meta" id="statExpenseMeta">All time spending</p>
+            </article>
+
+            <article class="stat-card tone-teal">
+              <div class="stat-top">
+                <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg></span>
+                <span class="stat-label">This month</span>
+              </div>
+              <p class="stat-value num" id="statMonth">—</p>
+              <p class="stat-meta" id="statMonthMeta">Expenses in current month</p>
+            </article>
+          </section>
+
+          <section class="stat-grid reveal" aria-label="Secondary summary">
+            <article class="stat-card tone-accent">
+              <div class="stat-top">
+                <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-landmark"></use></svg></span>
+                <span class="stat-label">Remaining budget</span>
+              </div>
+              <p class="stat-value num" id="statBudgetLeft">—</p>
+              <p class="stat-meta" id="statBudgetMeta">Set a budget to track it</p>
+            </article>
+
+            <article class="stat-card tone-teal">
+              <div class="stat-top">
+                <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-piggy-bank"></use></svg></span>
+                <span class="stat-label">Savings</span>
+              </div>
+              <p class="stat-value num" id="statSavings">—</p>
+              <p class="stat-meta" id="statSavingsMeta">Income kept after expenses</p>
+            </article>
+
+            <article class="stat-card tone-warn">
+              <div class="stat-top">
+                <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-receipt"></use></svg></span>
+                <span class="stat-label">Transactions</span>
+              </div>
+              <p class="stat-value num" id="statCount">—</p>
+              <p class="stat-meta" id="statCountMeta">Recorded so far</p>
+            </article>
+          </section>
+
+          <section class="grid-2 reveal">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Recent transactions</h2>
+                  <p class="sub">Your latest money movement</p>
+                </div>
+                <a class="btn btn-ghost btn-sm right" href="transactions.html">View all</a>
+              </div>
+              <div class="txn-list" id="recentList" style="margin-top:12px"></div>
+            </article>
+
+            <div class="stack">
+              <article class="card card-pad">
+                <div class="row" style="margin-bottom:14px">
+                  <h2 style="font-size:16px">Monthly budget</h2>
+                  <a class="btn btn-ghost btn-sm right" href="budget.html">Manage</a>
+                </div>
+                <div id="dashBudget"></div>
+              </article>
+
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <h2>Spending insights</h2>
+                    <p class="sub">Generated from your own data</p>
+                  </div>
+                </div>
+                <div class="insight-list" id="insightList"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="card reveal">
+            <div class="card-head">
+              <div>
+                <h2>Expense trend</h2>
+                <p class="sub">Last 6 months of spending</p>
+              </div>
+              <span class="badge badge-teal right" id="trendBadge">—</span>
+            </div>
+            <div class="chart-box mid">
+              <canvas id="trendChart" aria-label="Expense trend chart for the last six months" role="img"></canvas>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
