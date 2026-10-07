@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions · SpendWise</title>
+  <meta name="description" content="Search, filter, sort and manage every transaction in SpendWise." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232fe0c4' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M3 17l6-6 4 4 7-7'/%3E%3Cpath d='M14 8h6v6'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app">
+    <div class="scrim" id="scrim"></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+        <span>
+          <span class="brand-name">Spend<span>Wise</span></span>
+          <span class="brand-sub">Personal finance</span>
+        </span>
+      </a>
+
+      <p class="nav-label">Overview</p>
+      <nav class="nav">
+        <a class="nav-link" href="index.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-layout-dashboard"></use></svg> Dashboard
+        </a>
+        <a class="nav-link" href="transactions.html" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg> Transactions
+        </a>
+        <a class="nav-link" href="analytics.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-chart-pie"></use></svg> Analytics
+        </a>
+      </nav>
+
+      <p class="nav-label">Plan</p>
+      <nav class="nav">
+        <a class="nav-link" href="budget.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-wallet"></use></svg> Budget
+        </a>
+        <a class="nav-link" href="savings.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg> Savings Goal
+        </a>
+        <a class="nav-link" href="settings.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg> Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-note">
+          <strong>Tip of the day</strong>
+          <span>Filter by month to see exactly where a pay cycle went.</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" type="button"
+                aria-label="Open navigation" aria-expanded="false">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+        </button>
+        <div class="topbar-title">
+          <h1 id="pageTitle">Transactions</h1>
+          <p id="pageSub">Search, filter and manage your history</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="themeToggle" type="button" data-tip="Switch theme" aria-label="Switch theme">
+            <svg class="icon" aria-hidden="true"><use href="#i-sun"></use></svg>
+          </button>
+          <button class="icon-btn" type="button" data-add-txn data-tip="Add transaction" aria-label="Add transaction">
+            <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+            <span class="dot"></span>
+          </button>
+          <span class="avatar" id="userAvatar" aria-hidden="true">U</span>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="page">
+
+          <section class="page-intro reveal">
+            <div>
+              <h2>All transactions</h2>
+              <p id="txnCountLine">Everything you have recorded, in one place.</p>
+            </div>
+            <div class="actions">
+              <button class="btn" type="button" data-export-csv>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#i-download"></use></svg> Export CSV
+              </button>
+              <button class="btn btn-primary" type="button" data-add-txn>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#i-plus"></use></svg> Add transaction
+              </button>
+            </div>
+          </section>
+
+          <section class="card reveal">
+            <div class="toolbar">
+              <div class="search-box">
+                <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+                <label class="sr-only" for="searchInput">Search transactions</label>
+                <input class="input" id="searchInput" type="search"
+                       placeholder="Search description or category…" />
+              </div>
+
+              <label class="sr-only" for="typeFilter">Filter by type</label>
+              <select class="select" id="typeFilter">
+                <option value="all">All types</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+
+              <label class="sr-only" for="categoryFilter">Filter by category</label>
+              <select class="select" id="categoryFilter">
+                <option value="all">All categories</option>
+              </select>
+
+              <label class="sr-only" for="monthFilter">Filter by month</label>
+              <select class="select" id="monthFilter">
+                <option value="all">All dates</option>
+              </select>
+
+              <label class="sr-only" for="sortSelect">Sort transactions</label>
+              <select class="select" id="sortSelect">
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+                <option value="high">Highest amount</option>
+                <option value="low">Lowest amount</option>
+              </select>
+
+              <button class="btn btn-ghost btn-sm" id="resetFilters" type="button">Reset</button>
+            </div>
+
+            <div class="table-wrap">
+              <table class="data" id="txnTable">
+                <caption class="sr-only">Transaction history with date, description, category, type and amount</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Type</th>
+                    <th scope="col" class="amount">Amount</th>
+                    <th scope="col" class="amount">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="txnBody"></tbody>
+              </table>
+            </div>
+
+            <div id="txnEmpty"></div>
+
+            <div class="table-foot" id="txnFoot"></div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/transactions.js"></script>
+</body>
+</html>
