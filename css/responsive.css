@@ -1,0 +1,149 @@
+/* ==========================================================================
+   SpendWise — responsive behaviour across breakpoints
+   ========================================================================== */
+
+/* ------------------------------------------------------ large desktop --- */
+
+@media (max-width: 1280px) {
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ------------------------------------------------------------ laptop ---- */
+
+@media (max-width: 1100px) {
+  .grid-2 { grid-template-columns: minmax(0, 1fr); }
+  .stat-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ------------------------------------------------------------- tablet --- */
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: min(290px, 84vw);
+    transform: translateX(-105%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.is-open { transform: none; }
+
+  .menu-btn { display: grid; }
+
+  .grid-even { grid-template-columns: minmax(0, 1fr); }
+
+  .budget-hero { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ----------------------------------------------------------- mobile ----- */
+
+@media (max-width: 700px) {
+  body { font-size: 14.5px; }
+
+  .main { padding: 16px 14px 46px; }
+
+  .stat-grid,
+  .stat-grid.two { grid-template-columns: minmax(0, 1fr); gap: 13px; }
+
+  .page-intro .actions { margin-left: 0; width: 100%; }
+  .page-intro .actions .btn { flex: 1; }
+
+  .form-grid { grid-template-columns: minmax(0, 1fr); }
+
+  .topbar { gap: 10px; padding: 10px 14px; }
+  .topbar-title p { display: none; }
+  .topbar-actions { gap: 7px; }
+  .avatar { display: none; }
+
+  /* transaction rows become stacked cards */
+  .txn-row {
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "icon main amount"
+      "icon meta actions";
+    row-gap: 7px;
+    padding: 13px 15px;
+  }
+
+  .txn-icon { grid-area: icon; width: 38px; height: 38px; }
+  .txn-main { grid-area: main; }
+  .txn-amount { grid-area: amount; align-self: start; }
+  .txn-meta-cell { grid-area: meta; }
+  .txn-actions { grid-area: actions; opacity: 1; justify-self: end; }
+
+  /* data tables collapse into labelled cards */
+  table.data,
+  table.data thead,
+  table.data tbody,
+  table.data tr,
+  table.data th,
+  table.data td {
+    display: block;
+  }
+
+  table.data thead { display: none; }
+
+  table.data tbody tr {
+    margin: 12px 14px;
+    padding: 6px 2px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+
+  table.data td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 9px 14px;
+    border-top: 1px solid var(--border);
+    text-align: right;
+  }
+
+  table.data td:first-child { border-top: 0; }
+
+  table.data td::before {
+    content: attr(data-label);
+    flex: none;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-align: left;
+  }
+
+  table.data td.amount { text-align: right; }
+  table.data td.actions { justify-content: space-between; }
+
+  .toolbar { padding: 13px 14px; }
+  .toolbar .select { flex: 1; min-width: 130px; }
+  .search-box { min-width: 100%; }
+
+  .goal-ring { width: 150px; height: 150px; margin: 0 auto; }
+  .goal-layout { justify-content: center; text-align: center; }
+  .goal-facts { min-width: 0; width: 100%; }
+
+  .chart-box.tall { height: 280px; }
+  .chart-box.mid { height: 250px; }
+
+  .setting-row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .setting-control .btn { flex: 1; }
+
+  .modal-root { padding: 12px; align-items: flex-end; }
+  .modal { max-height: 92vh; }
+
+  .toast-stack { right: 12px; left: 12px; bottom: 12px; width: auto; }
+
+  .table-foot { justify-content: center; text-align: center; }
+}
+
+@media (max-width: 420px) {
+  .page-intro h2 { font-size: 20px; }
+  .stat-value { font-size: 22px; }
+  .goal-facts { grid-template-columns: minmax(0, 1fr); }
+}
