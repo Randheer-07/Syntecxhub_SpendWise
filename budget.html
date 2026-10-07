@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget · SpendWise</title>
+  <meta name="description" content="Set monthly and category budgets, track usage and get alerts." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232fe0c4' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M3 17l6-6 4 4 7-7'/%3E%3Cpath d='M14 8h6v6'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app">
+    <div class="scrim" id="scrim"></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+        <span>
+          <span class="brand-name">Spend<span>Wise</span></span>
+          <span class="brand-sub">Personal finance</span>
+        </span>
+      </a>
+
+      <p class="nav-label">Overview</p>
+      <nav class="nav">
+        <a class="nav-link" href="index.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-layout-dashboard"></use></svg> Dashboard
+        </a>
+        <a class="nav-link" href="transactions.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg> Transactions
+        </a>
+        <a class="nav-link" href="analytics.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-chart-pie"></use></svg> Analytics
+        </a>
+      </nav>
+
+      <p class="nav-label">Plan</p>
+      <nav class="nav">
+        <a class="nav-link" href="budget.html" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="#i-wallet"></use></svg> Budget
+        </a>
+        <a class="nav-link" href="savings.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg> Savings Goal
+        </a>
+        <a class="nav-link" href="settings.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg> Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-note">
+          <strong>Tip of the day</strong>
+          <span>Category budgets catch overspending before the month ends.</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" type="button"
+                aria-label="Open navigation" aria-expanded="false">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+        </button>
+        <div class="topbar-title">
+          <h1 id="pageTitle">Budget</h1>
+          <p id="pageSub">Monthly and category limits</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="themeToggle" type="button" data-tip="Switch theme" aria-label="Switch theme">
+            <svg class="icon" aria-hidden="true"><use href="#i-sun"></use></svg>
+          </button>
+          <button class="icon-btn" type="button" data-add-txn data-tip="Add transaction" aria-label="Add transaction">
+            <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+            <span class="dot"></span>
+          </button>
+          <span class="avatar" id="userAvatar" aria-hidden="true">U</span>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="page">
+
+          <section class="page-intro reveal">
+            <div>
+              <h2>Budget manager</h2>
+              <p id="budgetMonthLabel">Set limits and watch them update live.</p>
+            </div>
+          </section>
+
+          <section class="grid-2 reveal">
+            <article class="card card-pad">
+              <div class="budget-hero">
+                <div>
+                  <p class="small muted" id="budgetMainLabel">Remaining this month</p>
+                  <p class="budget-amount num" id="budgetRemaining">—</p>
+                  <p class="small muted" id="budgetSpentLine">—</p>
+                </div>
+                <div style="text-align:right">
+                  <span class="badge badge-teal" id="budgetPercent">0% used</span>
+                </div>
+              </div>
+
+              <div class="progress" style="margin-top:18px; height:14px" role="progressbar"
+                   aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Overall budget usage">
+                <div class="progress-bar" id="budgetBar" style="width:0%"></div>
+              </div>
+
+              <div class="budget-legend" style="margin-top:14px">
+                <span><i class="legend-dot spent"></i>Spent <b id="legendSpent">—</b></span>
+                <span><i class="legend-dot"></i>Remaining <b id="legendLeft">—</b></span>
+                <span><i class="legend-dot over"></i>Budget <b id="legendTotal">—</b></span>
+              </div>
+
+              <div id="budgetAlert" style="margin-top:18px"></div>
+            </article>
+
+            <article class="card card-pad">
+              <h2 style="font-size:16px; margin-bottom:4px">Monthly budget</h2>
+              <p class="small muted" style="margin-bottom:16px">
+                Apply a single spending limit for every month.
+              </p>
+              <form id="budgetForm" class="stack" novalidate>
+                <div class="field">
+                  <label for="budgetInput">Total monthly budget</label>
+                  <input class="input" id="budgetInput" type="number" min="0" step="100"
+                         inputmode="numeric" placeholder="e.g. 20000" />
+                  <span class="error-text" data-error="budget"></span>
+                </div>
+                <button class="btn btn-primary" type="submit">Save budget</button>
+              </form>
+
+              <div class="row wrap" style="margin-top:16px; gap:8px">
+                <span class="small muted">Quick set:</span>
+                <button class="chip" type="button" data-quick="10000">₹10,000</button>
+                <button class="chip" type="button" data-quick="20000">₹20,000</button>
+                <button class="chip" type="button" data-quick="35000">₹35,000</button>
+                <button class="chip" type="button" data-quick="50000">₹50,000</button>
+              </div>
+            </article>
+          </section>
+
+          <section class="card reveal">
+            <div class="card-head">
+              <div>
+                <h2>Category budgets</h2>
+                <p class="sub">Limit spending per category for the current month</p>
+              </div>
+            </div>
+
+            <form class="toolbar" id="catBudgetForm">
+              <label class="sr-only" for="catSelect">Category</label>
+              <select class="select" id="catSelect"></select>
+
+              <label class="sr-only" for="catLimit">Limit amount</label>
+              <input class="input" id="catLimit" type="number" min="0" step="100"
+                     inputmode="numeric" placeholder="Limit amount" style="max-width:180px" />
+
+              <button class="btn btn-primary btn-sm" type="submit">Add limit</button>
+              <span class="filter-count" id="catBudgetCount"></span>
+            </form>
+
+            <div class="card-pad" id="catBudgetList" style="padding-top:4px"></div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/budget.js"></script>
+</body>
+</html>
