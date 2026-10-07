@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings · SpendWise</title>
+  <meta name="description" content="Theme, currency, data export and reset options for SpendWise." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232fe0c4' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M3 17l6-6 4 4 7-7'/%3E%3Cpath d='M14 8h6v6'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app">
+    <div class="scrim" id="scrim"></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+        <span>
+          <span class="brand-name">Spend<span>Wise</span></span>
+          <span class="brand-sub">Personal finance</span>
+        </span>
+      </a>
+
+      <p class="nav-label">Overview</p>
+      <nav class="nav">
+        <a class="nav-link" href="index.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-layout-dashboard"></use></svg> Dashboard
+        </a>
+        <a class="nav-link" href="transactions.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg> Transactions
+        </a>
+        <a class="nav-link" href="analytics.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-chart-pie"></use></svg> Analytics
+        </a>
+      </nav>
+
+      <p class="nav-label">Plan</p>
+      <nav class="nav">
+        <a class="nav-link" href="budget.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-wallet"></use></svg> Budget
+        </a>
+        <a class="nav-link" href="savings.html">
+          <svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg> Savings Goal
+        </a>
+        <a class="nav-link" href="settings.html" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg> Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-note">
+          <strong>Tip of the day</strong>
+          <span>Your data never leaves this browser — SpendWise runs fully offline.</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" type="button"
+                aria-label="Open navigation" aria-expanded="false">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+        </button>
+        <div class="topbar-title">
+          <h1 id="pageTitle">Settings</h1>
+          <p id="pageSub">Preferences and data control</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="themeToggle" type="button" data-tip="Switch theme" aria-label="Switch theme">
+            <svg class="icon" aria-hidden="true"><use href="#i-sun"></use></svg>
+          </button>
+          <button class="icon-btn" type="button" data-add-txn data-tip="Add transaction" aria-label="Add transaction">
+            <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+            <span class="dot"></span>
+          </button>
+          <span class="avatar" id="userAvatar" aria-hidden="true">U</span>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="page">
+
+          <section class="page-intro reveal">
+            <div>
+              <h2>Settings</h2>
+              <p>Appearance, currency and control over your stored data.</p>
+            </div>
+          </section>
+
+          <section class="card card-pad reveal">
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong>Theme</strong>
+                <span>Dark is the default. Light mode is designed just as carefully.</span>
+              </div>
+              <div class="setting-control">
+                <div class="segmented" id="themeSegment" role="group" aria-label="Theme selection">
+                  <button type="button" data-theme-value="dark">Dark</button>
+                  <button type="button" data-theme-value="light">Light</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong>Currency</strong>
+                <span>Used across every amount in the app. Defaults to INR (₹).</span>
+              </div>
+              <div class="setting-control">
+                <label class="sr-only" for="currencySelect">Currency</label>
+                <select class="select" id="currencySelect" style="min-width:170px">
+                  <option value="INR">INR — Indian Rupee (₹)</option>
+                  <option value="USD">USD — US Dollar ($)</option>
+                  <option value="EUR">EUR — Euro (€)</option>
+                  <option value="GBP">GBP — Pound Sterling (£)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong>Display name</strong>
+                <span>Shown in the dashboard greeting.</span>
+              </div>
+              <div class="setting-control">
+                <label class="sr-only" for="nameInput">Display name</label>
+                <input class="input" id="nameInput" type="text" maxlength="30"
+                       placeholder="Your name" style="min-width:200px" />
+                <button class="btn btn-sm" type="button" id="saveName">Save</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card card-pad reveal">
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong>Export transactions</strong>
+                <span>Download your full history as a CSV file that opens in Excel or Sheets.</span>
+              </div>
+              <div class="setting-control">
+                <button class="btn" type="button" data-export-csv>Export CSV</button>
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong>Backup (JSON)</strong>
+                <span>Save a complete backup of transactions, budgets and goals.</span>
+              </div>
+              <div class="setting-control">
+                <button class="btn" type="button" id="backupJson">Download backup</button>
+                <button class="btn" type="button" id="restoreJson">Restore backup</button>
+                <input type="file" id="restoreInput" accept="application/json" class="sr-only" />
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong>Sample data</strong>
+                <span>Reload the demo transactions that ship with SpendWise.</span>
+              </div>
+              <div class="setting-control">
+                <button class="btn" type="button" id="loadSample">Load sample data</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card card-pad danger-zone reveal">
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong class="text-expense">Clear all data</strong>
+                <span>Permanently deletes every transaction, budget and goal stored in this browser.</span>
+              </div>
+              <div class="setting-control">
+                <button class="btn btn-danger" type="button" id="clearData">Clear everything</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card card-pad reveal">
+            <div class="stack">
+              <div class="row">
+                <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+                <div>
+                  <strong style="display:block">SpendWise — Smart Personal Expense Tracker</strong>
+                  <span class="small muted">Version 1.0 · Built with HTML, CSS, JavaScript, Chart.js and LocalStorage.</span>
+                </div>
+              </div>
+              <p class="small muted">
+                Developed as part of the Syntecxhub Web Development Internship.
+                All data is stored locally in your browser — nothing is sent to any server.
+              </p>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>
